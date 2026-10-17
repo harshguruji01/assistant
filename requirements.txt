@@ -1,0 +1,29 @@
+# Falcon AI Desktop Assistant Dependencies
+# Developed by: HarshGuruJi
+# Primary Platform: Windows 11
+# Python: 3.12+ (Compatible with Python 3.14)
+
+# Core & System Integration (Optional but recommended for full OS telemetry)
+psutil>=5.9.0
+Pillow>=10.0.0
+
+# Desktop Graphical Interface & Real-time Web Platform
+PySide6>=6.6.0
+fastapi>=0.110.0
+uvicorn>=0.28.0
+websockets>=12.0
+pydantic>=2.6.0
+aiofiles>=23.2.0
+
+# Voice Processing (Optional: Speech Recognition & Text-To-Speech)
+pyttsx3>=2.90
+SpeechRecognition>=3.10.0
+
+# Optional High-Performance Speech & Wake-Word
+# pip install faster-whisper
+# pip install openwakeword
+
+# AI Model Cloud Adapters (Optional: Native SDKs if not using standard HTTP)
+# pip install openai
+# pip install google-genai
+# pip install anthropic

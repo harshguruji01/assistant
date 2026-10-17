@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>HarshGuruJi Chat — 4K UHD Secure Private Messaging</title>
+  <meta name="description" content="Secure, high-speed private messaging platform with 4K UHD responsive interface. Developed by HarshGuruJi.">
+  <link rel="icon" type="image/png" href="https://www.webguruji.online/logo-192.png">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- ==================== LEFT SIDEBAR ==================== -->
+    <aside class="sidebar">
+      <!-- Sidebar Header -->
+      <div class="sidebar-header">
+        <div class="brand-badge">
+          <img class="brand-logo" src="https://www.webguruji.online/logo-512.png" alt="HarshGuruJi Logo">
+          <div class="brand-text">
+            <h1>HarshGuruJi Chat</h1>
+            <span class="hgj-tag">4K ULTRA PRIVATE ENGINE</span>
+          </div>
+        </div>
+        <div class="avatar-wrapper" style="width: 36px; height: 36px;">
+          <img id="userAvatar" class="avatar-img" src="https://www.webguruji.online/logo-192.png" alt="Profile">
+          <span id="connectionBeacon" class="status-indicator status-offline"></span>
+        </div>
+      </div>
+
+      <!-- Current User Profile Pill -->
+      <div style="padding: 10px 18px; border-bottom: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: space-between; background: rgba(15, 23, 42, 0.4);">
+        <div>
+          <div id="userDisplayName" style="font-weight: 600; font-size: 13px;">Harsh Patel</div>
+          <div style="font-size: 11px; color: var(--accent-cyan); font-weight: 600;" id="userHgjId">HGJ-7F42K9</div>
+        </div>
+        <span style="font-size: 11px; background: rgba(59, 130, 246, 0.2); color: #60A5FA; padding: 2px 8px; border-radius: 12px; font-weight: 600;">ACTIVE</span>
+      </div>
+
+      <!-- Unified Search Area -->
+      <div class="search-container">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Search username or HarshGuruJi ID..."
+            autocomplete="off"
+          >
+        </div>
+
+        <!-- Floating Ranked Search Suggestions -->
+        <div id="searchSuggestions" class="search-suggestions"></div>
+      </div>
+
+      <!-- Conversation List -->
+      <div id="conversationList" class="conversation-list"></div>
+    </aside>
+
+    <!-- ==================== MAIN CHAT PANEL ==================== -->
+    <main class="chat-panel">
+      <!-- Empty State View -->
+      <div id="emptyChatState" class="empty-chat-state">
+        <svg width="68" height="68" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--text-dim); margin-bottom: 8px;">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+        <h3>HarshGuruJi Private Messaging</h3>
+        <p style="font-size: 13px; margin-top: 6px; max-width: 320px;">Select an existing conversation from the left or search a username/ID to start a secure chat.</p>
+      </div>
+
+      <!-- Active Chat Content (hidden until a conversation is selected) -->
+      <div id="activeChatContent" style="display: none; flex-direction: column; height: 100%; width: 100%;">
+        <!-- Header -->
+        <header class="chat-header">
+          <div class="chat-partner-info">
+            <div class="avatar-wrapper">
+              <img id="partnerAvatar" class="avatar-img" src="https://www.webguruji.online/logo-192.png" alt="Partner">
+              <span id="partnerOnlineBeacon" class="status-indicator status-online"></span>
+            </div>
+            <div class="chat-partner-details">
+              <h2 id="partnerName">Chat Partner</h2>
+              <div id="partnerMeta" class="chat-partner-meta"></div>
+            </div>
+          </div>
+
+          <!-- Top Actions & Windows Startup Pill -->
+          <div class="chat-header-actions">
+            <!-- Windows Startup Auto-launch Switch -->
+            <button id="startupToggleBtn" class="startup-toggle" title="Toggle automatic startup on Windows 11 boot">
+              <span>⚡ Windows Startup: OFF</span>
+            </button>
+
+            <!-- Block User Button -->
+            <button id="blockUserBtn" class="btn-icon btn-danger" title="Block User">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <!-- Messages History -->
+        <div id="messageHistory" class="message-history"></div>
+
+        <!-- Typing Indicator -->
+        <div id="typingIndicator" class="typing-indicator">
+          <span>Typing</span>
+          <div class="typing-dots">
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+            <span class="typing-dot"></span>
+          </div>
+        </div>
+
+        <!-- Composer Form -->
+        <div class="composer-container">
+          <form id="composerForm" class="composer-form">
+            <input 
+              type="text" 
+              id="messageInput" 
+              class="composer-input" 
+              placeholder="Type a message..." 
+              autocomplete="off"
+            >
+            <button type="submit" class="btn-send" title="Send message">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
